@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>peixian subscriptions in feedly Cloud</title>
+    </head>
+    <body>
+        <outline text="Every Day" title="Every Day">
+            <outline type="rss" text="High Scalability" title="High Scalability" xmlUrl="http://feeds.feedburner.com/HighScalability" htmlUrl="http://highscalability.com/blog/"/>
+            <outline type="rss" text="TLDR AI RSS Feed" title="TLDR AI RSS Feed" xmlUrl="https://tldr.tech/api/rss/ai" htmlUrl="https://tldr.tech"/>
+            <outline type="rss" text="Martin Fowler" title="Martin Fowler" xmlUrl="http://martinfowler.com/bliki/bliki.atom" htmlUrl="https://martinfowler.com"/>
+            <outline type="rss" text="TLDR RSS Feed" title="TLDR RSS Feed" xmlUrl="https://tldr.tech/rss" htmlUrl="https://tldr.tech"/>
+            <outline type="rss" text="阮一峰的网络日志" title="阮一峰的网络日志" xmlUrl="http://feeds.feedburner.com/ruanyifeng" htmlUrl="http://www.ruanyifeng.com/blog/"/>
+            <outline type="rss" text="Netflix TechBlog - Medium" title="Netflix TechBlog - Medium" xmlUrl="http://techblog.netflix.com/feeds/posts/default" htmlUrl="https://netflixtechblog.com?source=rss----2615bd06b42e---4"/>
+            <outline type="rss" text="Hacker News Daily" title="Hacker News Daily" xmlUrl="http://www.daemonology.net/hn-daily/index.rss" htmlUrl="https://www.daemonology.net/hn-daily/"/>
+            <outline type="rss" text="All Things Distributed" title="All Things Distributed" xmlUrl="http://www.allthingsdistributed.com/atom.xml" htmlUrl="https://www.allthingsdistributed.com/"/>
+            <outline type="rss" text="The Pragmatic Engineer" title="The Pragmatic Engineer" xmlUrl="http://blog.pragmaticengineer.com/rss/" htmlUrl="https://blog.pragmaticengineer.com/"/>
+            <outline type="rss" text="Quastor" title="Quastor" xmlUrl="https://rss.beehiiv.com/feeds/nczRb4PQ6t.xml" htmlUrl="https://blog.quastor.org/"/>
+            <outline type="rss" text="Engineer’s Codex" title="Engineer’s Codex" xmlUrl="https://engineercodex.substack.com/feed" htmlUrl="https://read.engineerscodex.com"/>
+            <outline type="rss" text="Stratechery by Ben Thompson" title="Stratechery by Ben Thompson" xmlUrl="https://stratechery.com/feed/" htmlUrl="https://stratechery.com"/>
+            <outline type="rss" text="Alex Kondov's RSS Feed" title="Alex Kondov's RSS Feed" xmlUrl="https://alexkondov.com/rss.xml" htmlUrl="https://alexkondov.com"/>
+        </outline>
+        <outline text="Blog" title="Blog">
+            <outline type="rss" text="虹线" title="虹线" xmlUrl="https://1q43.blog/feed" htmlUrl="https://1q43.blog"/>
+            <outline type="rss" text="Software Design: Tidy First?: From the Archives" title="Software Design: Tidy First?: From the Archives" xmlUrl="https://tidyfirst.substack.com/feed?sectionId=64895" htmlUrl="https://tidyfirst.substack.com/s/from-the-archives"/>
+            <outline type="rss" text="子舒的博客" title="子舒的博客" xmlUrl="https://zishu.me/index.xml" htmlUrl="https://zishu.me/"/>
+            <outline type="rss" text="董泽润的技术笔记" title="董泽润的技术笔记" xmlUrl="https://mytechshares.com/atom.xml" htmlUrl="https://mytechshares.com/"/>
+            <outline type="rss" text="信息差——独立开发者出海周刊" title="信息差——独立开发者出海周刊" xmlUrl="https://gapis.money/rss.xml" htmlUrl="https://gapis.money"/>
+            <outline type="rss" text="翟志军" title="翟志军" xmlUrl="http://showme.codes/feed.xml" htmlUrl="https://showme.codes"/>
+            <outline type="rss" text="seangoedecke.com RSS feed" title="seangoedecke.com RSS feed" xmlUrl="https://www.seangoedecke.com/rss.xml" htmlUrl="https://seangoedecke.com"/>
+            <outline type="rss" text="qcrao 的博客" title="qcrao 的博客" xmlUrl="https://qcrao.com/index.xml" htmlUrl="https://qcrao.com/"/>
+            <outline type="rss" text="Eliran Turgeman" title="Eliran Turgeman" xmlUrl="https://www.16elt.com/atom.xml" htmlUrl="https://eliran-turgeman.github.io/"/>
+            <outline type="rss" text="No Headback" title="No Headback" xmlUrl="http://xargin.com/rss/" htmlUrl="http://xargin.com/"/>
+            <outline type="rss" text="Mohuishou" title="Mohuishou" xmlUrl="https://lailin.xyz/atom.xml" htmlUrl="https://lailin.xyz/"/>
+            <outline type="rss" text="Linux 中国◆开源社区" title="Linux 中国◆开源社区" xmlUrl="http://linux.cn/rss-tech.xml" htmlUrl="https://linux.cn/"/>
+            <outline type="rss" text="Stories by Aliaksandr Valialkin on Medium" title="Stories by Aliaksandr Valialkin on Medium" xmlUrl="https://medium.com/feed/@valyala" htmlUrl="https://medium.com/@valyala?source=rss-cb258502f669------2"/>
+            <outline type="rss" text="luozhiyun`s Blog" title="luozhiyun`s Blog" xmlUrl="https://www.luozhiyun.com/feed" htmlUrl="https://www.luozhiyun.com"/>
+            <outline type="rss" text="jacob toots" title="jacob toots" xmlUrl="http://jacobian.org/feed/" htmlUrl="https://jacobian.org/"/>
+            <outline type="rss" text="文库" title="文库" xmlUrl="https://tool.lu/article/feed.xml" htmlUrl="https://tool.lu/article/"/>
+            <outline type="rss" text="Coding Horror" title="Coding Horror" xmlUrl="https://blog.codinghorror.com/rss/" htmlUrl="https://blog.codinghorror.com/"/>
+            <outline type="rss" text="运维咖啡吧" title="运维咖啡吧" xmlUrl="https://blog.ops-coffee.cn/feed.xml" htmlUrl="https://blog.ops-coffee.com/atom.xml"/>
+            <outline type="rss" text="Stratechery by Ben Thompson" title="Stratechery by Ben Thompson" xmlUrl="https://stratechery.com/feed/" htmlUrl="https://stratechery.com"/>
+            <outline type="rss" text="Marc Brooker's Blog" title="Marc Brooker's Blog" xmlUrl="http://brooker.co.za/blog/rss.xml" htmlUrl="http://brooker.co.za/blog/"/>
+            <outline type="rss" text="Taxodium" title="Taxodium" xmlUrl="https://taxodium.ink/rss.xml" htmlUrl="https://taxodium.ink/"/>
+            <outline type="rss" text="piglei" title="piglei" xmlUrl="https://www.piglei.com/feeds/latest/" htmlUrl="https://www.piglei.com/"/>
+            <outline type="rss" text="8th Light Insights" title="8th Light Insights" xmlUrl="http://blog.8thlight.com/feed/atom.xml" htmlUrl="https://8thlight.com/insights"/>
+            <outline type="rss" text="JUNPING" title="JUNPING" xmlUrl="https://blog.imjp.uk/feed.xml" htmlUrl="https://blog.imjp.uk/"/>
+            <outline type="rss" text="Pinboard - bookmarking for introverts" title="Pinboard - bookmarking for introverts" xmlUrl="https://pinboard.in/feed" htmlUrl="https://pinboard.in/"/>
+            <outline type="rss" text="HelloGitHub 月刊" title="HelloGitHub 月刊" xmlUrl="https://hellogithub.com/rss" htmlUrl="https://hellogithub.com"/>
+            <outline type="rss" text="the morning paper" title="the morning paper" xmlUrl="http://blog.acolyer.org/feed/" htmlUrl="https://blog.acolyer.org"/>
+            <outline type="rss" text="Computing Life" title="Computing Life" xmlUrl="https://grapeot.me/feeds/atom.xml" htmlUrl="https://grapeot.me/"/>
+            <outline type="rss" text="PyCoder’s Weekly" title="PyCoder’s Weekly" xmlUrl="https://pycoders.com/feed/jq9qgZ1E" htmlUrl="https://pycoders.com/"/>
+            <outline type="rss" text="🍺 IceBeer" title="🍺 IceBeer" xmlUrl="https://www.icebeer.top/feed/" htmlUrl="https://www.icebeer.top/"/>
+            <outline type="rss" text="二丫讲梵" title="二丫讲梵" xmlUrl="https://wiki.eryajf.net/rss.xml" htmlUrl="https://wiki.eryajf.net"/>
+            <outline type="rss" text="Raptitude.com" title="Raptitude.com" xmlUrl="http://www.raptitude.com/feed/" htmlUrl="https://www.raptitude.com"/>
+            <outline type="rss" text="Microservice architecture" title="Microservice architecture" xmlUrl="http://microservices.io/feed.xml" htmlUrl="http://microservices.io"/>
+            <outline type="rss" text="Computer Things" title="Computer Things" xmlUrl="https://buttondown.com/hillelwayne/rss" htmlUrl="https://buttondown.com/hillelwayne"/>
+            <outline type="rss" text="徐叶佳" title="徐叶佳" xmlUrl="https://blog.monsterxx03.com/index.xml" htmlUrl="https://blog.monsterxx03.com/"/>
+            <outline type="rss" text="InfoWorld Open Source" title="InfoWorld Open Source" xmlUrl="http://www.infoworld.com/category/open-source-software/index.rss" htmlUrl="https://www.infoworld.com"/>
+            <outline type="rss" xmlUrl="https://makeoptim.com/feed.xml" htmlUrl="https://makeoptim.com/"/>
+            <outline type="rss" text="New stuff" title="New stuff" xmlUrl="http://loup-vaillant.fr/updates.xml" htmlUrl="http://loup-vaillant.fr/"/>
+            <outline type="rss" text="Owen的博客" title="Owen的博客" xmlUrl="https://www.owenyoung.com/atom.xml" htmlUrl="https://www.owenyoung.com"/>
+        </outline>
+    </body>
+</opml>
