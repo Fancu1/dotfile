@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Milestone Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prd",
+    "title",
+    "status",
+    "summary",
+    "evidence",
+    "commands_run",
+    "files_changed",
+    "tests"
+  ],
+  "properties": {
+    "prd": { "type": "string" },
+    "title": { "type": "string" },
+    "status": { "type": "string", "enum": ["PASS", "FAIL"] },
+    "summary": { "type": "string" },
+    "evidence": { "type": "array", "items": { "type": "string" } },
+    "commands_run": { "type": "array", "items": { "type": "string" } },
+    "files_changed": { "type": "array", "items": { "type": "string" } },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["command", "result", "evidence"],
+        "properties": {
+          "command": { "type": "string" },
+          "result": { "type": "string", "enum": ["PASS", "FAIL"] },
+          "evidence": { "type": "string" }
+        }
+      }
+    }
+  }
+}
