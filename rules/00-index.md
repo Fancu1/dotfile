@@ -1,0 +1,25 @@
+# Codex Rules Index（索引，仅供参考，不参与加载）
+
+- 10-core.md：核心执行协议
+- 11-skill-invocation.md：Skill 调度（自动但受控）
+- 12-quality-standards.md：可验收质量标准
+- 13-skill-recommendations.md：Skill 路由映射（兜底）
+- 14-high-quality-workflow.md：高质量默认工作流（含 gates）
+- 00-general.md：语言/工具/命令卫生
+- 05-agents-and-docsforai.md：docsforai 同步与优先级
+- 90-project-profile.md：项目画像（单一事实源）
+- 50-prd.md：PRD 产出规范
+- 52-prd-audit.md：PRD 审计门
+- 51-plan.md：Plan 产出规范
+- 53-plan-audit.md：Plan 审计门
+- 06-planning-and-mcp.md：MCP/SKILL 验证补充
+- 20-testing-and-verification.md：测试与验证闭环
+- 22-review-verification-tools.md：评审/验证工具偏好
+- 25-review-and-quality.md：评审与质量门槛
+- 60-style.md：代码风格/格式规则
+- 30-backend.md：后端规则
+- 40-frontend.md：前端规则
+- 41-chrome-extension.md：Chrome 插件规则
+- 42-data-scripts.md：数据/脚本规则
+- 43-mobile.md：移动端规则
+- 44-infra.md：基础设施规则
