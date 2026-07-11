@@ -1,0 +1,4 @@
+interface:
+  display_name: "XSKY CI/CD Debug"
+  short_description: "Debug Jenkins and CI/CD issues fast"
+  default_prompt: "Use $xsky-cicd-debug to investigate a Jenkins build and map it to XSKY CI/CD code."
