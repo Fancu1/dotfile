@@ -1,0 +1,4 @@
+interface:
+  display_name: "产品方向规划"
+  short_description: "结合产品现状、用户痛点和优秀产品案例判断下一步发展方向"
+  default_prompt: "使用 $product-direction 分析当前项目下一步最值得投入的产品方向，并给出有证据的取舍、克制与最小验证建议。"

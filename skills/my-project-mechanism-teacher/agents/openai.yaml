@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Mechanism Teacher"
+  short_description: "Understand one code path without reading the code"
+  default_prompt: "Use $my-project-mechanism-teacher to teach me how this business flow, subsystem, or design mechanism works and why, as a self-contained learning package."

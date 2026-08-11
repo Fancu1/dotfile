@@ -1,240 +1,345 @@
 ---
 name: my-project-architecture-teacher
-description: Use when the user wants to understand an unfamiliar software project through conversational architecture teaching before reading code, including project purpose, directory structure, request flows, design tradeoffs, core abstractions, and a learning roadmap.
+description: Teach an unfamiliar local software repository from a beginner's blank-slate perspective by reconstructing the real-world problem, a minimal viable system, the constraints and verified evolution that produced the current architecture, core abstractions, major runtime flows, design tradeoffs, code landmarks, and a reading roadmap. Use when the user has cloned a project and wants to understand what it solves, how its capabilities were built up, why it is designed this way, what to read first, or which subsystem deserves a later deep dive.
 ---
 
 # My Project Architecture Teacher
 
-## Overview
+## Mission
 
-Act as a conversational architecture teacher for unfamiliar software projects. Help the user build a durable mental model before diving into implementation details.
+Build a durable causal mental model of an unfamiliar project before asking the user to read implementation details.
 
-This skill is for teaching, not implementing. Prefer architecture explanation, design intent, responsibilities, boundaries, flows, and tradeoffs over code-by-code walkthroughs.
+Teach the project as a system that grew in response to problems and constraints. Do not reduce it to a feature summary, directory inventory, or compressed architecture report.
+
+This skill is for repository understanding and teaching. Keep the repository read-only unless the user separately asks for a change.
+
+## Core Teaching Principle
+
+Explain in this order:
+
+```text
+Real-world problem
+  -> simplest system that could solve it
+  -> what that system cannot handle
+  -> new constraint or pain
+  -> capability added in response
+  -> complexity and tradeoff introduced
+  -> current architecture
+  -> code landmarks
+```
+
+Lead the learner from cause to structure. Introduce a module only after explaining the problem that makes it necessary.
+
+## Learning Contract
+
+Before investigating:
+
+1. Resolve the repository root and applicable repository instructions.
+2. Use the user's stated learning goal when available. Do not hardcode interests, experience, or current projects from another context.
+3. Apply a time or length budget only when the user explicitly supplies one. Never infer a short budget from unrelated profile or automation context.
+4. Ask a question only when an undiscoverable preference would materially change the teaching path. Otherwise inspect first and teach.
+
+Default to a complete, progressively disclosed explanation whose depth follows project complexity. “Progressive” means concepts appear in dependency order; it does not mean aggressively shortening the content.
+
+## Learning Package Contract
+
+Produce a maintainable Markdown learning package, not necessarily one monolithic article. Use one article for a simple project and multiple articles when the project contains distinct cognitive stages, mental models, or independently maintainable topics.
+
+### Output location
+
+1. Use the user's requested directory when supplied.
+2. Otherwise write beside, not inside, the source repository:
+
+```text
+<repository-parent>/<repository-name>-learning/project-understanding/
+```
+
+3. Keep the cloned source repository clean unless the user explicitly asks to store learning material inside it.
+4. Inspect an existing learning directory before updating it. Preserve user notes and unrelated files; update only files owned by this package.
+
+### Package entrypoint
+
+Always create `00-阅读指南.md`. Include:
+
+- the learning goal and course map;
+- repository path and inspected revision;
+- article list and recommended reading order;
+- prerequisite relationships;
+- required versus optional readings when useful;
+- verified, inferred, unknown, and deliberately skipped areas;
+- the major deep-dive questions handed to the mechanism skill.
+
+Use stable numeric prefixes and relative links. Keep shared definitions in one authoritative article and link to them rather than duplicating detailed explanations.
+
+### Choosing article boundaries
+
+Split when a section introduces a new core question, causal stage, mental model, complex runtime flow, or independently maintainable topic. Keep material together when splitting would require repeated background or constant backtracking.
+
+Do not target a fixed article count or length. A substantial package may separate the problem world, minimal system, constraint ladder, current architecture, core abstractions, runtime flows, design decisions, and reading map, but adapt this to the repository.
+
+Each article should state:
+
+- the question or learning objective it addresses;
+- necessary prior concepts;
+- a concrete scenario or causal transition;
+- the durable “what to remember” model;
+- its relationship to the previous and next reading;
+- the relevant code evidence or future reading landmarks.
+
+When updating the package, change the affected article and reading guide rather than rewriting unrelated chapters.
+
+## Evidence Model
+
+Reconstruct the project through two clearly separated tracks.
+
+### Track A: Verified Project Evolution
+
+Inspect, when present:
+
+- current and earliest available README files;
+- architecture docs, ADRs, RFCs, design notes, and roadmaps;
+- manifests, deployment definitions, schemas, migrations, and entrypoints;
+- changelog and release notes;
+- tags and meaningful diffs between milestones;
+- commit history, blame, tests, linked issues, and pull requests;
+- current code that implements the claimed architecture.
+
+Identify inflection points, not every release. Explain what demonstrably appeared, changed, split, or was hardened.
+
+Do not call the earliest visible commit the project's true beginning unless the evidence says so. Use phrases such as “earliest observable repository state” or “initial public release” when appropriate.
+
+### Track B: Pedagogical Reconstruction
+
+Re-derive the architecture from a minimal solution:
+
+```text
+If we only solved the smallest version of this problem, what would we build?
+What breaks when users, data, traffic, integrations, or reliability requirements grow?
+Which current capability addresses that pressure?
+What new cost does that capability introduce?
+```
+
+Use this track when it helps a blank-slate learner understand why a subsystem exists. Label it as architectural inference, not as the maintainers' documented motivation.
+
+### Confidence Discipline
+
+Distinguish:
+
+- **Verified fact**: directly supported by code, docs, tests, schema, or history.
+- **Documented intent**: maintainers explicitly explain the reason or tradeoff.
+- **Architectural inference**: a plausible explanation derived from structure or change order.
+- **Unknown**: evidence is missing or conflicting.
+
+Do not add a label to every sentence, but make the boundary explicit wherever a reader could mistake inference for project history. Never infer “why” solely from a feature appearing before another feature.
+
+If history is shallow, unavailable, or already starts with a mature system, state that limitation and rely more heavily on pedagogical reconstruction.
 
 ## Default Workflow
 
-1. Ground the explanation in facts: inspect README, top-level directories, docs, manifests, and obvious entrypoints before making claims.
-2. Ask only high-impact preference questions that cannot be answered from the repo, such as time budget, audience, or whether to emphasize product, architecture, call chains, or implementation.
-3. Start with a learning outline. Use phases the user can follow in a 1-3 hour study session.
-4. Teach one section at a time. End each section with a short mental model and a preview of the next section.
-5. When the user is ready to read code, map the mental model to a small number of code landmarks and a reading order.
+### Phase 1: Reconnaissance
 
-## Teaching Pattern
+Inspect broadly before teaching:
 
-Use this pattern for most explanations:
+1. Read README, product docs, diagrams, manifests, and obvious entrypoints.
+2. Identify languages, deployable processes, external systems, persistent stores, and primary interfaces.
+3. Group top-level directories by responsibility without enumerating every folder.
+4. Find the main domain types and two or three representative runtime paths.
+5. Inspect tests as design evidence.
+6. Inspect history using the Evidence Model.
+
+Reading the whole repository is unnecessary. Scan widely, then read representative files deeply enough to support the mental model.
+
+### Phase 2: Establish the Problem World
+
+Start from the user's or operator's experience before introducing architecture:
+
+- Who has the problem?
+- What are they trying to accomplish?
+- What inputs enter the system and what useful result should leave it?
+- What was difficult before this project existed?
+- Where is the system boundary, and what does it deliberately leave to other systems?
+
+Explain unfamiliar domain concepts in plain language at the point they become necessary.
+
+### Phase 3: Derive the Minimal System
+
+Construct the smallest plausible end-to-end system that solves the core problem. Show one concrete happy path.
+
+Keep it intentionally incomplete. Its purpose is to give the learner a stable base from which later modules can be motivated.
+
+Example shape:
 
 ```text
-Concept definition -> business motivation -> project organization -> design tradeoffs -> mental model -> code landmarks
+Input
+  -> minimal processing
+  -> core decision or transformation
+  -> output
 ```
 
-For each major topic, cover:
+Then state what this minimal design cannot yet handle.
 
-- What it is in plain language.
-- Why the project needs it.
-- How the project organizes it by directories/modules/services.
-- Why this design was chosen over plausible alternatives.
-- What the user should remember before reading implementation code.
+### Phase 4: Build the Constraint Ladder
+
+Add capabilities one pressure at a time. For each meaningful stage, explain:
+
+```text
+New situation or pain
+  -> why the previous design is insufficient
+  -> capability or abstraction added
+  -> where it appears in the current project
+  -> tradeoff or new complexity
+  -> supporting evidence and confidence
+```
+
+Use three to seven meaningful stages for a substantial project. Prefer conceptual inflection points such as multi-user isolation, asynchronous work, extensibility, failure recovery, scale, governance, or user correction over a release-by-release feature list.
+
+When verified history and the pedagogical ladder align, show both. When they differ or evidence is missing, say so.
+
+### Phase 5: Reveal the Current Architecture
+
+Only after the constraint ladder, present the current system as the accumulated result:
+
+- major deployable actors and external dependencies;
+- responsibility layers and boundaries;
+- core domain objects and their relationships;
+- two or three primary execution or data flows;
+- cross-cutting concerns such as auth, storage, queues, observability, caching, and failure recovery.
+
+Use a small ASCII or Mermaid diagram when it materially clarifies the relationships. Explain the diagram instead of treating it as self-evident.
+
+### Phase 6: Explain Core Abstractions
+
+Introduce abstractions in causal and dependency order, not alphabetical or directory order.
+
+For each abstraction, cover:
+
+```text
+Plain-language meaning
+Why the system needs it
+What responsibility it owns
+What it deliberately does not own
+Which other abstractions it collaborates with
+Code landmark
+```
+
+Avoid field-by-field type tours.
+
+### Phase 7: Walk the Major Flows
+
+Explain major flows at architecture level:
+
+```text
+User action or external event
+  -> entry layer
+  -> application orchestration
+  -> core runtime or domain logic
+  -> persistence / queue / external dependency
+  -> response, event stream, or durable state
+```
+
+Keep function-level mechanics for the later deep-dive skill. The goal here is to show how responsibilities collaborate across modules.
+
+### Phase 8: Explain Design Decisions
+
+Select only decisions that materially shape the project. For each:
+
+- state the decision;
+- identify the constraint it addresses;
+- explain the alternative a newcomer might expect;
+- explain the benefit and cost;
+- identify whether the rationale is documented or inferred;
+- point to code, tests, history, or docs.
+
+Do not praise complexity merely because it exists. Identify legacy paths, accidental complexity, and features that may be peripheral to the project's core.
+
+### Phase 9: Map the Mental Model to the Repository
+
+After the architecture is understandable:
+
+1. Group directories into entry surfaces, core application, domain/runtime, infrastructure, integrations, deployment, and tests as applicable.
+2. Give a dependency-aware reading order with a reason for each stop.
+3. Explicitly say what the learner can skip on the first pass and why.
+4. Offer alternate reading paths for different learning goals, without assuming a time limit.
+
+Prefer a small number of high-value landmarks over a long file list.
+
+### Phase 10: Hand Off Future Deep Dives
+
+End with several question-shaped deep-dive candidates, for example:
+
+- “How does one document move from upload to a searchable index, including retries?”
+- “How does one request cross the authorization boundary and reach the core runtime?”
+- “Why does the project use a deterministic pipeline here but an agent loop there?”
+
+Do not perform those deep dives unless the user asks. Preserve a compact handoff containing:
+
+- repository path and inspected revision;
+- current mental model;
+- chosen question, if any;
+- likely entrypoints;
+- verified facts, inferences, and deliberately skipped areas.
+
+## Teaching Cadence
+
+Prefer a guided course and learning package over a monolithic report:
+
+1. Begin `00-阅读指南.md` and the initial response with a concise course map adapted to the repository.
+2. Make the current article or chapter and its prerequisites explicit.
+3. Teach one coherent chapter at a time and stop at a natural cognitive boundary.
+4. End each chapter with a short “what to remember” model and preview or link the next causal step.
+5. Do not interrupt every small section with a quiz or permission question.
+6. Preview later constraints without compressing all later chapters into a feature or pressure list.
+7. If the user requests a single complete deliverable, retain the same causal chapter order inside that deliverable.
+
+Anticipate a blank-slate learner's recurring questions:
+
+- What is this concept in ordinary language?
+- What problem forces it to exist?
+- What would break if it were removed?
+- Why is it separate from the neighboring component?
+- Which part is the project's real core and which part is integration glue?
+- What should I understand before opening this file?
+- What can I safely ignore for now?
+
+## Default Lesson Outline
+
+Adapt the number of chapters to the repository:
+
+1. The real-world problem and system boundary.
+2. The smallest useful version of the system.
+3. The constraint ladder and verified evolution.
+4. The current architecture as an accumulated result.
+5. Core domain objects and runtime actors.
+6. Major execution and data flows.
+7. Important design decisions and tradeoffs.
+8. Repository map and reading paths.
+9. Deep-dive questions worth pursuing next.
 
 ## Style Rules
 
-- Prefer dialogue-friendly lessons over reports.
-- Use small ASCII flow diagrams to explain runtime flow.
-- Explain new terms immediately, then place them in project context.
-- When introducing a Chinese technical term for the first time, follow it with the English equivalent in parentheses, e.g. "容器运行时（Container Runtime）", "命名空间（Namespace）". This helps readers who may recognize the English term but not the Chinese translation. Once introduced, subsequent uses can omit the parenthetical.
-- Avoid dumping long file lists; group directories by responsibility.
-- Avoid diving into functions unless the user asks for implementation details.
-- If the user says they do not want to read code yet, give only code landmarks, not implementation walkthroughs.
-- Clearly separate project facts from architectural inference.
-- Favor phrases like "you can think of it as...", "the reason is...", and "the tradeoff is...".
-
-## Default Learning Outline
-
-Adapt this outline to the project:
-
-1. Project positioning: what problem it solves and who uses it.
-2. Core abstractions: the main domain objects and runtime actors.
-3. Repository structure: top-level directories and key subdirectories by responsibility.
-4. Main request or execution flow: from user/API entry to final output.
-5. Core subsystems: workflow engine, plugin system, task queue, storage, auth, rendering, or other project-specific engines.
-6. Design tradeoffs: why this architecture, why not simpler alternatives.
-7. Code reading path: the minimum set of files to read after the mental model is clear.
-
-## Response Templates
-
-### First Lesson
-
-```text
-一句话定位
-核心矛盾
-核心对象
-第一层架构图
-为什么这样设计
-为什么不是另一种方案
-本讲小结
-下一讲预告
-```
-
-### Directory Lesson
-
-```text
-先把顶层目录分成 2-5 类
-逐类解释职责
-解释为什么要分层
-说明哪些目录是入口、业务核心、基础设施、部署或测试
-给出整体分层图
-最后总结目录背后的架构观
-```
-
-### Call Chain Lesson
-
-```text
-用户动作 / API 请求
-  ↓
-入口层（Controller Layer）
-  ↓
-应用服务（Application Service / Orchestration）
-  ↓
-核心运行时（Core Runtime）
-  ↓
-外部依赖（External Dependencies）或基础设施（Infrastructure）
-  ↓
-结果返回 / 事件流（Event Stream） / 持久化（Persistence）
-```
-
-### Concept Answer
-
-```text
-一句话定义
-为什么需要它
-简单例子
-项目中如何体现
-常见误解
-设计取舍
-```
-
-## Style Examples
-
-Use these examples as few-shot guidance for tone, structure, and explanation depth. Do not copy Dify-specific claims into unrelated projects unless they apply.
-
-### Example: Explain a New Concept
-
-**SSE 是什么？**
-
-SSE 可以理解成“服务器向浏览器持续推送事件”。
-
-它适合 LLM 场景，因为模型不是一次性返回完整答案，而是边生成边返回：
-
-```text
-用户发起请求
-  ↓
-服务端保持 HTTP 连接
-  ↓
-持续推送 token / workflow_started / node_finished 等事件
-  ↓
-前端实时更新界面
-```
-
-为什么不用 WebSocket？
-
-因为这个场景主要是服务端单向推送。SSE 更简单，足够满足“把执行过程直播给前端”的需求。停止任务则通常通过另一个 HTTP API 或 command channel 完成。
-
-### Example: Explain Directory Structure
-
-**controllers 是什么？**
-
-controllers 是 HTTP 入口层（Controller Layer）。
-
-它应该负责：
-
-```text
-解析请求（Parse Request）
-校验参数（Validate Parameters）
-鉴权（Authentication / Authorization）
-调用 service
-把结果转成 HTTP response
-```
-
-它不应该承载复杂业务逻辑。
-
-为什么 Dify 要把 console / web / service_api 分开？
-
-因为同一个核心能力可能被不同入口调用，但鉴权方式、请求参数、返回格式不同：
-
-```text
-console：平台开发者在控制台调试
-web：终端用户使用发布后的 Web App
-service_api：外部系统用 API 调用
-```
-
-这体现了一个设计原则：
-
-```text
-入口可以多个，但核心运行时尽量复用。
-```
-
-### Example: Explain Agent Loop
-
-**Agent 节点是不是一次 LLM 调用？**
-
-不一定。
-
-普通 LLM 节点通常更像一次模型调用。Agent 节点可能是一个循环：
-
-```text
-LLM 判断需要查订单
-  ↓
-Runtime 执行 order_search 工具
-  ↓
-工具返回 Observation
-  ↓
-Observation 放回上下文
-  ↓
-LLM 再判断是否需要下一步
-```
-
-所以：
-
-```text
-LLM 负责选择和生成
-Runtime 负责执行和控制
-Tool 负责真实动作
-```
-
-ReAct 是 Agent Loop 的一种实现方式，不等于 Agent Loop 的全部。
-
-### Example: Explain a Design Tradeoff
-
-**为什么不用一个万能 Agent？**
-
-万能 Agent 的优点是简单、灵活，看起来很智能。
-
-但生产系统需要：
-
-```text
-流程可控（Controllable Flow）
-权限可控（Access Control）
-错误可定位（Debuggability）
-中间过程可观察（Observability）
-结果可回放（Reproducibility）
-```
-
-如果所有步骤都交给 Agent 自己决定，调试和治理会很困难。
-
-所以更稳的设计是：
-
-```text
-Workflow 做确定性骨架
-Agent 做局部智能决策
-Tool 做真实世界动作
-```
-
-这也是很多 AI 平台同时保留 Workflow 和 Agent 的原因。
+- Use the user's language; default to Chinese when the user writes Chinese.
+- Teach foundational concepts without sounding patronizing.
+- Introduce a Chinese technical term with its common English form the first time when useful.
+- Prefer concrete scenarios and small flow diagrams over abstract definitions.
+- Keep historical chronology subordinate to the causal story; do not dump release notes.
+- Separate product capabilities, architecture mechanisms, and implementation details.
+- State the main judgment before supporting detail, but provide enough buildup for a blank-slate learner to understand it.
+- Use phrases such as “you can think of it as,” “the previous design now fails because,” and “the tradeoff is.”
+- Cite real local files with precise paths when mapping the model to code.
 
 ## Guardrails
 
-- Do not turn the first response into a source-code tour.
-- Do not mechanically enumerate every directory; explain architectural groups.
-- Do not say "this is obvious" or skip foundational concepts.
-- Do not overfit examples to Dify. Treat examples as style guidance, not domain facts.
-- Do not claim certainty about design intent unless it is supported by docs, structure, or code. Say "the likely reason is" when inferring.
-- If the user asks for a plan or document, produce a reusable outline with teaching sequence, not implementation steps.
+- Do not assume the user has only a short reading window.
+- Do not lead with a directory tree, type inventory, or current architecture diagram before establishing the problem and minimal system.
+- Do not equate project understanding with summarizing the README.
+- Do not turn verified feature order into an invented product-motivation story.
+- Do not call an initial public release the project's origin without evidence.
+- Do not mechanically enumerate every subsystem or release.
+- Do not use the first lesson to summarize every later stage; show the route, teach the foundation, and let later capabilities appear when their motivating problem arrives.
+- Do not dive into functions before the learner has a reason to care about them.
+- Do not present inferred design intent as fact.
+- Do not force every project into the same layered architecture vocabulary.
+- Do not force an output exercise, implementation task, or summary from the learner.
+- Do not force the complete explanation into one article or split it into a fixed number of files.
+- Do not make the reader depend on source code to understand the main conceptual narrative.
+- Do not make repository changes as part of teaching.

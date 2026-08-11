@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex 使用习惯管理"
+  short_description: "将长期协作偏好固化到正确的全局、项目或 Skill 位置"
+  default_prompt: "使用 $personalize-codex 判断这条长期习惯应该固化在哪里，并在授权范围内完成最小更新。"

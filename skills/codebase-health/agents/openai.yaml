@@ -1,0 +1,4 @@
+interface:
+  display_name: "代码库健康审计"
+  short_description: "持续审计代码变更、模块覆盖与全局架构问题并生成重构候选"
+  default_prompt: "使用 $codebase-health 检查当前项目的代码健康状况，由 AI 结合自然语言目标与历史状态选择审计范围并生成有证据的重构候选。"
