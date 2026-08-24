@@ -1,297 +1,316 @@
 ---
 name: my-project-mechanism-teacher
-description: Investigate and teach one focused business flow, execution path, subsystem, algorithm, state machine, or architectural mechanism in an unfamiliar local repository from a blank-slate learner's perspective. Use when the user asks how a specific feature or module works, why it is designed that way, how data and state move end to end, what happens on failures or retries, or wants a code-grounded deep dive that remains understandable without opening the source code.
+description: Teach one explicitly requested repository flow, subsystem, algorithm, state machine, technology choice, or architectural mechanism as a beginner-first, story-driven, code-independent Markdown learning package. Use only when the user explicitly invokes this skill to understand how a focused behavior works end to end, why its design or technology choices exist, how data and state change, or which consequential failure boundaries matter. Investigate code, tests, documentation, and history rigorously, but teach through one stable example before exposing full call chains or engineering evidence.
 ---
 
-# My Project Mechanism Teacher
+# Project Mechanism Teacher
 
 ## Mission
 
-Turn one focused repository question into a durable, code-independent mental model.
+Teach one focused mechanism so that a zero-background reader can run it in their head without reading source code.
 
-Produce a self-contained learning package that lets a blank-slate reader mentally execute the mechanism without opening the source. Use code, tests, history, and documentation as evidence; do not substitute symbol lists or a call-chain dump for teaching.
+The required lessons must establish:
 
-Keep the source repository read-only unless the user separately requests a code change.
+- the concrete event that starts the mechanism;
+- the useful or observable result that ends the promised explanation;
+- the few main participants and their responsibilities;
+- the important data or state changes during one normal execution;
+- the central reason the mechanism or technology choice is shaped this way.
+
+Investigate the complete engineering truth, but do not put that completeness in the beginner's first reading path.
+
+## Priority: Absorption Before Completeness
+
+These gates override any desire to make required prose comprehensive.
+
+1. **One stable example** runs through the whole package.
+2. **Happy path first**: finish one normal execution before branches or evidence.
+3. **One question per article**: stop immediately after the promised exit ability.
+4. **At most three new durable concepts in each required article.**
+5. **At most five meaningful nodes in the first diagram.** Count every unique actor, module, store, queue, state, or named mechanism shown.
+6. **Behavior before terminology**: explain what happens in ordinary language, then introduce the project term.
+7. **Core precision gate**: a detail stays in required prose only if removing it prevents the reader from answering that article's one question.
+
+Before drafting each required article, create a private binding ledger:
+
+```text
+Article question:
+Already known:
+New concepts: [no more than three]
+Can ignore:
+Exit ability:
+```
+
+After drafting, audit every project-specific name, code-formatted identifier, framework, protocol, library, algorithm, subsystem, infrastructure product, and state field. Each must be already known or consume one ledger slot. Otherwise translate it into ordinary language or move it out of the required article.
+
+Do not claim “three concepts” and then expand them into dependency inventories, code symbols, backend variants, deployment controls, or protocol features. Those facts belong in optional or reference material.
+
+Exact statement ordering, raw fields, retry constants, exhaustive state lists, library inventories, backend-specific visibility caveats, compatibility fallbacks, deployment details, and security configuration normally fail the core precision gate. Preserve them in the package; do not preserve them in the required path.
+
+## Invocation and Scope
+
+Run only when the user explicitly invokes `$my-project-mechanism-teacher`.
+
+- Do not run automatically because an architecture package suggests a deep dive.
+- Architecture material may be context only after explicit invocation.
+- Do not generate every suggested mechanism.
+- Stay within the one mechanism or design question selected by the user.
+- If several independent questions appear, teach the primary one and list the others as possible follow-ups unless the user explicitly asks for all.
+
+Do not modify `my-project-architecture-teacher` while running this Skill.
 
 ## Success Standard
 
-Finish only when the learner can explain, without consulting the code:
+The required core succeeds when the reader can retell, without source code:
 
-- what real situation starts the mechanism and what useful outcome ends it;
-- which actors participate and what each one owns;
-- how control, data, and durable state move through the system;
-- where synchronous, asynchronous, transactional, or external boundaries occur;
-- why the current design exists, what simpler design would fail, and what complexity it introduces;
-- what happens on failure, retry, duplication, cancellation, concurrency, or partial success when relevant;
-- when an intermediate result becomes externally usable versus when all background work is complete;
-- where to read the implementation later and which claims are verified, inferred, or unknown.
+1. start and observable finish;
+2. main participants;
+3. key data or state changes;
+4. central design reason;
+5. any distinction between “the requested result is usable” and “all related work is finished.”
 
-Finding the entrypoint and listing downstream calls is necessary evidence, not completion.
+Retry, concurrency, cancellation, compensation, partial success, and rare failures enter required prose only if they change:
 
-## Learning Contract
+- externally observable success;
+- data safety or consistency; or
+- the central design reason.
 
-Before investigating:
+Otherwise, place them in an optional reality article or engineering reference.
 
-1. Resolve the repository root, applicable repository instructions, and current revision.
-2. Accept a natural-language question, business scenario, module name, directory, symbol, file, or design decision as the starting point.
-3. Use any handoff from `$my-project-architecture-teacher` when available. Otherwise reconstruct only the whole-project context required for this question.
-4. Apply a time or length budget only when the user explicitly supplies one.
-5. Ask only when multiple plausible interpretations would lead to materially different mechanisms. Otherwise inspect first and state the chosen interpretation.
+## Separate Investigation from Teaching
 
-Classify the target before tracing it:
+### Investigation is complete
 
-- **Vertical flow**: one user action or event crosses several layers or processes.
-- **Horizontal subsystem**: one module owns a capability and collaborates with neighboring modules.
-- **Mechanism or decision**: one algorithm, state machine, queue, cache, consistency rule, concurrency design, or other architectural choice.
+Privately trace as far as necessary:
 
-Adapt the investigation to the target; do not force every question into an HTTP request pipeline.
+- entry, exit, callers, callees, jobs, events, and process boundaries;
+- control, data, and state flow;
+- persistence, transactions, idempotency, and consistency;
+- consequential failures, retry, cancellation, compensation, and partial success;
+- configuration, deployment, tests, documentation, and relevant history.
 
-## Research Contract
+Prove every important arrow internally.
 
-Write a short internal contract before deep reading:
+### Teaching is selective
 
-```text
-Core question
-Concrete start condition
-Observable end condition
-In scope
-Out of scope
-Claims that must be proven
-Learner questions that must be answered
-```
+Show only the arrows needed for the reader's current question, in this order:
 
-Choose behavioral boundaries rather than arbitrary folder boundaries. A flow may legitimately cross routes, services, repositories, queues, workers, model providers, and tests.
+1. concrete example;
+2. one normal execution;
+3. minimum state boundary needed to interpret the result;
+4. problem pressure and ordinary-language solution;
+5. project term or technology name;
+6. optional reality branches;
+7. exact engineering evidence.
 
-## Evidence Model
+Never copy the call graph, object inventory, failure matrix, or history log into the required outline.
 
-Distinguish:
+## Research and Evidence
 
-- **Verified fact**: supported directly by current code, tests, schema, configuration, logs, or documentation.
-- **Documented intent**: maintainers explicitly record the reason or tradeoff.
-- **Architectural inference**: a plausible explanation derived from structure or behavior but not documented as intent.
-- **Unknown**: evidence is absent, ambiguous, stale, or conflicting.
+Treat the source repository as read-only. Do not modify its code, configuration, tests, generated files, or documentation.
 
-Use the following evidence ladder for “why” questions:
+Investigate current facts in this order when relevant:
 
-1. comments, ADRs, design docs, tests, and explicit invariants;
-2. focused commit history, blame, pull requests, issues, and release notes around the relevant path;
-3. comparison between the implemented constraints and plausible alternatives;
-4. clearly labeled architectural inference.
+1. implementation and configuration;
+2. focused tests and fixtures;
+3. repository documentation;
+4. history or design records;
+5. official external documentation when current technology behavior matters.
 
-Do not turn a plausible benefit into the maintainers' historical motivation without evidence.
+Use repository search and follow symbols across language and process boundaries. Do not read directories linearly or let a README overrule current code.
 
-## Investigation Workflow
-
-### Phase 1: Re-anchor the Question
-
-Explain in plain language:
-
-- who experiences the problem;
-- what they do;
-- what input enters;
-- what result they expect;
-- where this mechanism sits inside the larger product.
-
-Keep this reorientation brief. Do not rerun the full architecture skill.
-
-### Phase 2: Build the Blank-Slate Question Tree
-
-Before drafting, anticipate what a reader with no code context will wonder:
-
-- What is this term in ordinary language?
-- Why does this step exist at all?
-- Why can the previous component not do it itself?
-- What data exists before and after this step?
-- Where is that data stored, and who owns it?
-- Why is this synchronous or asynchronous?
-- What does the user observe while it runs?
-- What happens if this step fails halfway through?
-- Can it run twice, race with another action, or be cancelled?
-- When is the result usable, and when is the whole job complete?
-- Why not use the simpler alternative a newcomer would expect?
-- What new problem does this design create, and how is that controlled?
-
-Add mechanism-specific questions. Use this tree to order the explanation; do not merely append it as an FAQ.
-
-### Phase 3: Trace the Skeleton
-
-Scan symbols and boundaries to build a provisional map:
-
-1. external entry: UI action, route, CLI, event, scheduler, or queue;
-2. validation and authorization gate;
-3. application orchestrator or domain service;
-4. core data types and state transitions;
-5. persistence and transaction boundaries;
-6. interface-to-implementation or external dependency crossings;
-7. asynchronous tasks, callbacks, events, or streams;
-8. externally visible result and completion signal.
-
-If forward tracing breaks, trace backward from durable outputs, task registrations, database records, events, or tests.
-
-### Phase 4: Prove Every Important Arrow
-
-Read representative implementation deeply enough to answer for each major arrow:
+Keep a private evidence ledger:
 
 ```text
-Who calls whom?
-What is passed?
-What changes?
-What side effect becomes durable?
-What can fail?
-Who observes or handles that failure?
-What evidence proves this connection?
+Claim | Evidence | Confidence | Needed in core? | Destination
 ```
 
-Inspect tests as behavioral contracts. Inspect focused history when present behavior alone cannot explain a consequential design decision. Stop reading helpers and provider variants when they no longer change the model.
+Use these evidence classes:
 
-### Phase 5: Model More Than the Happy Path
+- **Verified fact**: current code, configuration, test, or runtime artifact.
+- **Documented intent**: explicit design record, issue, comment, or commit message.
+- **Verified suitability**: current constraints show why a choice fits, without proving original intent.
+- **Architectural inference**: plausible but not explicitly recorded.
+- **Unknown**: insufficient evidence.
 
-Trace relevant cross-cutting behavior:
+Never present suitability or inference as historical intent.
 
-- data ownership and state transitions;
-- synchronization, queues, retries, idempotency, and deduplication;
-- cancellation, deletion, timeouts, and partial completion;
-- transactions, compensation, cleanup, and eventual consistency;
-- concurrency and race prevention;
-- authorization and trust boundaries;
-- quotas, backpressure, and resource limits;
-- progress, logs, traces, metrics, and user-visible status;
-- configuration or feature flags that choose alternate paths.
+## Stable Example and Boundary
 
-Explain omissions explicitly when a category is irrelevant.
+Choose one realistic, memorable input or identifier before writing, such as one uploaded file, request, job ID, entity, or query. Reuse it throughout.
 
-### Phase 6: Explain the Causal Design
-
-For every decision that materially shapes the mechanism, teach this ladder:
+Define privately:
 
 ```text
-The intuitive simpler design
-  -> the situation where it becomes insufficient
-  -> the mechanism added by this project
-  -> how that mechanism works
-  -> the benefit it provides
-  -> the cost or new failure mode it introduces
-  -> how the project controls that cost
-  -> evidence and confidence
+Reader:
+Core question:
+Concrete start:
+Observable finish:
+Design reason to explain:
+Non-goals:
+Stable example:
 ```
 
-Distinguish essential domain complexity from framework glue, legacy compatibility, incidental complexity, and optional enhancement.
+Start with one complete happy path. If several completion moments exist, state which one satisfies the user's immediate goal. Branch from the same example instead of switching examples.
 
-### Phase 7: Run a Concrete Example Through the Model
+## Three-Layer Package
 
-Choose at least one realistic input and simulate it from start to finish. Show important intermediate representations, identifiers, records, messages, or states. Add an edge-case example when it reveals behavior the happy path hides.
+Produce the complete package in one run unless the user requests less. Layers are reading levels, not directories.
 
-Use invented example values only for illustration and label them as examples.
+### 1. Core runtime model — required
 
-### Phase 8: Map the Model Back to Code
+Usually one or two articles. This is the only required layer.
 
-After the mechanism is understandable, provide:
+- Complete one normal execution from start to observable finish.
+- Use only the few participants required for that execution.
+- Explain key data or state changes in ordinary language.
+- Explain the central design reason needed by the user's question.
+- If the question is a technology choice, that choice belongs here.
 
-- a small set of code landmarks in dependency order;
-- the responsibility of each landmark;
-- the tests that encode the important behavior;
-- an optional focused reading route;
-- a change-impact map: if a specified requirement changes, which contracts and stages are likely affected.
+For a technology-choice core, keep only:
 
-Code references are evidence and future navigation, not prerequisites for understanding the main explanation.
+1. the decisive constraint;
+2. the simpler alternative and why it becomes insufficient;
+3. the current boundary or choice;
+4. the primary benefit;
+5. the principal cost or control;
+6. the evidence boundary.
 
-## Representation Rules
+This causal sequence does not permit six new concepts. Express it using the article's three-concept ledger. Move secondary constraints, dependency examples, deployment mechanisms, protocol capabilities, exhaustive controls, and comparison details to later layers.
 
-Use the smallest representation that makes the relationship unambiguous:
+### 2. Design and reality branches — optional
 
-| Learning obstacle | Preferred representation |
-| --- | --- |
-| actors, ownership, and boundaries | component or context diagram |
-| runtime order across actors | sequence or flow diagram |
-| lifecycle and valid transitions | state diagram or state timeline |
-| branching, retries, and cancellation | decision flow |
-| orchestration or algorithm | implementation-neutral pseudocode |
-| data transformation | worked input/intermediate/output example |
-| why complexity accumulated | simple-design-to-current-design comparison |
-| competing choices | tradeoff table |
+Each article handles exactly one relevant pressure:
 
-Use Mermaid when it will render reliably; otherwise use a compact ASCII diagram. Explain every diagram in prose. Never make the reader reverse-engineer unexplained boxes and arrows.
+- one secondary technology choice;
+- one consequential failure;
+- retry or idempotency;
+- cancellation;
+- concurrency or ordering;
+- partial success or compensation;
+- one state boundary that changes external meaning.
 
-Do not translate source code line by line into pseudocode. Preserve decisions, state changes, loops, branches, and side effects while removing language and framework noise.
+Do not add an article merely because a branch exists.
 
-## Learning Package Contract
+### 3. Engineering evidence — reference
 
-Produce one Markdown article or several, according to cognitive boundaries. Never force a complex mechanism into one giant file, and never fragment a simple explanation merely to create chapters.
+Move exact engineering truth here:
 
-### Output location
+- precise call chain and process boundaries;
+- complete relevant state machine;
+- transaction and consistency boundaries;
+- code, configuration, tests, and fixtures;
+- history, evidence classes, and unknowns;
+- change-impact and debugging entry points.
 
-1. Use the user's requested directory when supplied.
-2. Otherwise write beside, not inside, the source repository:
+Required prose must remain understandable if this layer is skipped.
+
+## Reading Guide
+
+Create `00-阅读指南.md`.
+
+Its first screen contains only:
+
+- exact question;
+- stable example;
+- required core links;
+- the reader's exit ability;
+- details safe to ignore on the first pass.
+
+Mark only core runtime articles as required. Mark reality articles as optional and engineering evidence as reference. Put scope, revision, evidence conventions, unknowns, and maintenance notes after the first screen.
+
+Do not begin with source paths, frameworks, state fields, revision metadata, or a complete catalog.
+
+## Teaching Rhythm
+
+Use only the steps an article needs:
+
+1. return to the stable example;
+2. state the plain expectation or simple solution;
+3. show the observable pressure when one exists;
+4. explain the solution in ordinary language;
+5. name the project mechanism;
+6. state its guarantee and boundary;
+7. leave one memory rule;
+8. add a clearly skippable evidence pointer if useful.
+
+Do not manufacture a failure for a simple happy-path lesson. Do not define one unknown term with more unknown terms.
+
+## Visuals and Pseudocode
+
+Use a representation only when it removes a real obstacle.
+
+- One visual answers one question.
+- Reveal complexity progressively.
+- Do not generate diagrams, tables, and pseudocode merely for completeness.
+- State diagrams come only after states are explained in prose.
+- Pseudocode is only for decisions, loops, state changes, or side effects; never transliterate source.
+- Tables are for exact mappings or comparisons, not narrative.
+
+For the first diagram, count unique node IDs in the diagram source. The total must be five or fewer. Group adjacent internal steps under one ordinary-language role rather than hiding extra nodes behind combined labels.
+
+## Output Location
+
+Use a user-specified output directory when provided. Otherwise use:
 
 ```text
-<repository-parent>/<repository-name>-learning/deep-dives/<topic-slug>/
+/Users/peixian/wpx/my/github/repo-reader/<repository-name>/<topic-slug>/
 ```
 
-3. Keep the source repository clean unless the user explicitly asks to store learning material inside it.
-4. Inspect an existing learning directory before updating it. Preserve user notes and unrelated files; update only the owned package or choose a non-conflicting topic directory.
+Derive the repository name from the source root and a short filesystem-safe topic slug from the core question.
 
-### Package structure
+Place `00-阅读指南.md` and all numbered Markdown files directly in the topic directory. Do not create deeper layer, chapter, asset, or reference directories.
 
-Always create `00-阅读指南.md` as the entrypoint. Include:
+Before reusing a topic directory, inspect its guide and verify the same source repository and core question. Preserve unrelated content. If identity is missing, inconsistent, or ambiguous, stop and ask for an explicit target. Do not overwrite a merely similar topic.
 
-- learning goal and research contract;
-- repository path and inspected revision;
-- article list and recommended order;
-- prerequisite relationships;
-- required versus optional readings when useful;
-- verified, inferred, unknown, and deliberately skipped areas;
-- adjacent questions suitable for later deep dives.
+Keep learning material outside the source repository by default. Do not read or rewrite old learning packages unless the user explicitly asks.
 
-Choose article count and names from the actual mechanism. Use stable numeric prefixes and relative links. A substantial package may separate the big picture, core stages, data/state model, reliability paths, design decisions, and code evidence, but do not impose that split mechanically.
+## Workflow
 
-Split when a section introduces a new central question, mental model, complex failure surface, or independently maintainable mechanism. Keep sections together when splitting would require repeated background or constant backtracking.
+1. **Re-anchor**: verify repository root, revision, worktree, output target, question, start, finish, reason, and non-goals.
+2. **Design learning**: choose stable example; create reader contract, binding concept ledgers, and first-diagram node budget.
+3. **Investigate fully**: trace implementation, boundaries, failures, tests, configuration, documentation, and history; maintain evidence ledger.
+4. **Filter**: apply the external-semantics/data-safety/design-reason gate; assign every fact to core, optional, reference, or omit.
+5. **Draft**: happy path first; one pressure per optional article; exact code last.
+6. **Audit core**: enforce concept ledgers and precision gate; count actual unique nodes; remove post-promise details.
+7. **Verify**: validate local links, Markdown fences, flat layout, evidence pointers, and source-repository cleanliness.
 
-Each article should state:
+## Delivery Check
 
-- the question it answers;
-- required prior concepts;
-- a concrete scenario;
-- the explanation with necessary diagrams, pseudocode, or examples;
-- the durable “what to remember” model;
-- its relationship to the previous and next reading;
-- code evidence or reading landmarks.
+Do not deliver until all answers are yes:
 
-Maintain shared definitions in one authoritative place and link to them. When updating the package, change the affected article and reading guide rather than rewriting unrelated chapters.
+### Reader and layering
 
-## Teaching Style
+- Can a zero-background reader retell one normal execution without code?
+- Are start, finish, participants, state/data changes, and central reason clear?
+- Does the guide mark only core articles required?
+- Does every optional article cover one pressure?
+- Are complete calls, states, errors, code, tests, and history outside the required path?
 
-- Use the user's language; default to Chinese when the user writes Chinese.
-- Assume no prior knowledge of this code path and explain domain terms before using them as building blocks.
-- Begin with the concrete scenario, then reveal actors, flow, data, state, failure behavior, and code.
-- Prefer causal transitions such as “the previous design now fails because” and “this solves X but creates Y.”
-- State the main answer early, then build enough context to make it genuinely understandable.
-- Separate product behavior, architectural mechanism, implementation detail, and evidence.
-- Do not make the reader infer behavior from file names, function names, or diagrams alone.
-- Do not require a quiz or exercise, but include a worked simulation that demonstrates the model.
+### Absorption audit
 
-## Completion Audit
+- Does each required article answer one question and stop at its exit ability?
+- Does its private ledger contain at most three new concepts?
+- Did every named technical term pass that ledger?
+- Are dependency lists, raw identifiers, backend variants, deployment details, and other precision notes later unless indispensable?
+- Does the first diagram have five or fewer unique nodes when counted from its source?
+- Does the core still work when all evidence notes are skipped?
 
-Before delivery, verify:
+### Truth and safety
 
-1. Every major arrow in the flow has evidence.
-2. The package explains control flow, data flow, and state flow where relevant.
-3. The happy path and consequential non-happy paths are covered.
-4. Important “why” questions are answered or explicitly marked unknown.
-5. A reader can mentally simulate a concrete example without opening the source.
-6. Visuals or pseudocode fill every gap that prose alone leaves ambiguous.
-7. The reading guide matches the files and links in the package.
-8. Code landmarks are precise but remain optional for conceptual understanding.
-9. The package is split by cognitive boundaries and remains maintainable.
-10. No source-repository files were changed as part of teaching.
+- Are documented intent, suitability, inference, and unknowns distinct?
+- For choices, are constraint, simpler alternative, benefit, cost/control, and evidence clear?
+- Are important engineering claims traceable in the reference layer?
+- Is the source repository unchanged?
+- Are files flat in one correct topic directory?
+- Are local links valid and code fences paired?
 
-## Guardrails
+## Style
 
-- Do not assume a short reading window.
-- Do not produce only a directory inventory, symbol list, call graph, or code commentary.
-- Do not start with framework internals before establishing the user scenario.
-- Do not stop at the happy path when reliability behavior materially changes the design.
-- Do not present inferred intent as documented history.
-- Do not read every implementation after the important behavior is proven.
-- Do not force one monolithic article or a fixed chapter template.
-- Do not hide uncertainty to make the narrative feel complete.
-- Do not modify application code, configuration, data, or external systems while teaching.
+- Match the user's language.
+- Write as a patient teacher, not a code reviewer or API reference.
+- Prefer concrete actions and visible results over abstract nouns.
+- Explain why the next detail matters.
+- Be precise without front-loading precision the reader cannot yet use.
+- State uncertainty locally.
+- Keep code excerpts rare; the course must work without them.

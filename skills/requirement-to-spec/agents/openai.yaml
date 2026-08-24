@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirement to Spec"
+  short_description: "通过轻量项目调研收敛需求边界，并生成克制、可实施的开发规格"
+  default_prompt: "Use $requirement-to-spec to inspect the project lightly, confirm the requirement boundary, and produce an implementation-ready specification."

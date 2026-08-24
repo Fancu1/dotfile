@@ -1,4 +1,6 @@
 interface:
   display_name: "Project Mechanism Teacher"
-  short_description: "Understand one code path without reading the code"
-  default_prompt: "Use $my-project-mechanism-teacher to teach me how this business flow, subsystem, or design mechanism works and why, as a self-contained learning package."
+  short_description: "Understand one mechanism without reading source code"
+  default_prompt: "Use $my-project-mechanism-teacher to teach me how this specific repository flow, subsystem, or technology choice works and why through a beginner-first learning package."
+policy:
+  allow_implicit_invocation: false
