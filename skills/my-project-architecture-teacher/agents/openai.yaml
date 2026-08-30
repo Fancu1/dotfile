@@ -1,4 +1,4 @@
 interface:
   display_name: "Project Architecture Teacher"
-  short_description: "Learn unfamiliar projects through a story-first course"
-  default_prompt: "Use $my-project-architecture-teacher to create a beginner-first, story-driven, layered learning package for this unfamiliar repository."
+  short_description: "Explain architecture smoothly and map it to code"
+  default_prompt: "Use $my-project-architecture-teacher to create a programmer-first course that derives this project's architecture in smooth, information-dense prose, then maps it to code ownership and tests."

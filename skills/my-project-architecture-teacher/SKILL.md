@@ -1,315 +1,389 @@
 ---
 name: my-project-architecture-teacher
-description: Teach an unfamiliar local software repository through a beginner-first, story-driven, layered Markdown learning package. Use when the user wants to understand what a cloned project helps people accomplish, how one central task works end to end, why real-world pressures created its architecture, what concepts and runtime flows matter, what can be ignored at first, or where to begin reading code. Investigate the repository rigorously, but teach from a blank-slate reader's changing mental state rather than mirroring the codebase or architecture inventory.
+description: Teach an unfamiliar local software repository to programmers who know general software development but are new to the project and its domain. Derive why the current architecture and major modules exist in smooth, information-dense prose; assemble the whole-project mental model; explain how those responsibilities shape the repository tree; and map common changes to owning code, contracts, external repositories, and tests. Use when the user wants a readable Markdown course from domain foundations through practical code navigation. Investigate rigorously, keep source repositories read-only, distinguish evidence from pedagogical reconstruction, and reserve function-level mechanism details for later.
 ---
 
 # My Project Architecture Teacher
 
 ## Mission
 
-Turn an unfamiliar repository into a course that a blank-slate reader can absorb, retell, and later map to code.
+Turn an unfamiliar repository into a readable course for a programmer who understands ordinary software development but is new to this project and its domain. The prose should let the reader reconstruct the current architecture and then use that model to navigate real code changes.
 
-Success means the reader can explain, without opening the source:
+The required reading is complete only when the reader can:
 
-1. one real user or operator task the project completes;
-2. the smallest end-to-end system that could complete it;
-3. the main input, state change or processing, useful result, and system boundary;
-4. why the project's necessary mechanisms appear when the simple design meets reality.
+1. explain the human or business need without assuming the project or its domain solutions;
+2. show the earliest system that genuinely works under limited conditions;
+3. explain which concrete pressure earns every major current architecture responsibility;
+4. draw the current product-domain, runtime/deployment, and state/flow views from memory;
+5. explain each major module's responsibility, inputs, outputs, owned state, neighbors, and explicit non-responsibilities;
+6. explain the current repository's primary and secondary organizing axes, alternatives, tradeoffs, and evolutionary seams;
+7. trace representative behavior through the current directories, entrypoints, generated boundaries, external repositories, and tests;
+8. route a concrete change to its primary owner, required contracts, conditional neighbors, unaffected areas, and verification paths.
 
-Research like an architect, but write like a teacher. Do not publish the investigation outline as the lesson outline.
+The learner should feel the architecture grow, see it converge into the current system, understand why that system is projected into the repository tree in its present shape, and then use the tree rather than merely inspect it.
 
-This skill is for repository understanding and teaching. Keep the source repository read-only unless the user separately asks for a change.
+This skill is for repository understanding and teaching. Keep every source repository read-only unless the user separately asks to change it.
 
-## Core Teaching Principle
+## Required Resources
 
-Teach through a stable scenario and reveal names only after the learner feels the need for them:
+For every request that generates or rewrites course prose, read [references/narrative-writing-contract.md](references/narrative-writing-contract.md) before drafting. It defines the programmer audience, information-density rules, terminology timing, diagram admission, natural endings, and positive/negative examples.
+
+For every complete course request, also read [references/course-design-contract.md](references/course-design-contract.md) before designing the package. It contains the detailed investigation ledger, architecture-admission rules, repository-organization analysis, required course outputs, and delivery audit.
+
+Read [references/tower-regression-example.md](references/tower-regression-example.md) only when:
+
+- the target repository is Tower; or
+- this skill itself is being developed or behaviorally validated.
+
+Do not load or copy the Tower sequence for other repositories. Other projects must earn their own domain runway, architecture responsibilities, organizing axes, and change routes from current evidence.
+
+## Core Teaching Model
+
+Teach through a stable human goal and an evolving system:
 
 ```text
-concrete person and task
-  -> simplest plausible attempt
-  -> observable result or failure
-  -> ordinary-language solution
-  -> project concept or mechanism
-  -> accurate boundary and cost
-  -> code and evidence later
+solution-free human or business need
+  -> smallest system that genuinely works under stated conditions
+  -> visible successful result
+  -> one new concrete pressure
+  -> one observable failure or unacceptable cost
+  -> new responsibility in ordinary language
+  -> project or domain term
+  -> updated cumulative architecture model
+  -> repeat until every major current responsibility is earned
+  -> assemble the complete current architecture
+  -> explain how maintainers project it into the repository tree
+  -> map representative flows and changes to code and tests
 ```
 
-Ordering concepts by dependency is necessary but insufficient. Also control how many new ideas the learner must hold at once.
+This sequence is internal design scaffolding, not a visible article template. Four rules are mandatory:
+
+- Do not state the initial need using the project, mechanism, or domain object that the course is meant to explain.
+- Let the previous system succeed under explicit limited conditions before adding a pressure. Do not create a straw-man design merely to justify the current architecture.
+- If no simpler system can genuinely work, do not invent one. State the non-negotiable constraint, support it with evidence, and introduce only the responsibility it immediately requires.
+- Show that a previous system succeeds through its observable result. Do not repeatedly announce that "the current solution works" merely to satisfy the sequence.
+
+The minimal project loop is a checkpoint, not the course endpoint. Continue until all major current responsibilities have been taught and assembled.
 
 ## Learning Contract
 
 Before investigating:
 
-1. Resolve the repository root and applicable repository instructions.
+1. Resolve the source root, output location, applicable repository instructions, and current revision.
 2. Use the user's stated learning goal when available. Do not import interests, experience, or projects from another context.
-3. Assume no knowledge of this project or its domain. Do not assume no general technical ability.
-4. Apply a time or length budget only when the user explicitly supplies one.
-5. Ask only when an undiscoverable preference would materially change the teaching path. Otherwise inspect first and teach.
-6. By default, produce the complete layered package in one run. Do not stop after the beginner core to request confirmation unless the user asks for incremental delivery.
+3. Assume ordinary programming knowledge: frontend/backend development, development and production environments, HTTP, processes, and databases need no foundational tutorial unless the user says otherwise.
+4. Assume no knowledge of this project, its domain objects, runtime roles, architecture mechanisms, or repository conventions.
+5. Descend below ordinary programming concepts only when the user explicitly needs that foundation or the target concept cannot be understood without it.
+6. Treat a domain or project concept as already understood only when the user says so or the requested goal clearly establishes it.
+7. Apply a time or length budget only when the user explicitly supplies one.
+8. Ask only when an undiscoverable preference would materially change the teaching path. Otherwise inspect first and teach.
+9. By default, produce the complete required architecture and repository-navigation spine in one run. Do not stop at the minimal loop to request confirmation.
 
-## Separate Investigation from Teaching
+## Output Language
 
-### Investigation model
+Choose one output language before investigating and use it consistently across the guide and every article.
 
-Inspect broadly enough to be accurate:
+Resolve it in this order:
 
-- product docs, README files, diagrams, manifests, schemas, migrations, entrypoints, and deployment definitions;
-- deployable processes, external systems, persistent stores, primary interfaces, and system boundaries;
-- main domain types and representative runtime paths;
-- tests, ADRs, RFCs, changelogs, tags, commits, and meaningful historical diffs when available.
+1. Follow an explicit output-language instruction.
+2. For a direct interactive request, use Chinese when the user's main natural-language question is Chinese.
+3. Otherwise use English, including scheduled, automated, or indirect calls.
+4. When unclear, use English without asking.
 
-Group findings by architecture, domain, flow, constraint, decision, and evidence while investigating. This private structure prevents omissions; it is not the default article structure.
+Infer language only from the user's natural-language request, not repository content, paths, code identifiers, or quoted material.
 
-### Teaching model
+For English output:
 
-Recompose the evidence around the learner's questions:
+- write the architecture-construction narrative in natural low-B1 English;
+- write repository-navigation material in clear technical English;
+- preserve necessary code identifiers and explain unfamiliar terms simply.
 
-```text
-What is someone trying to do?
-  -> what is the simplest system that works once?
-  -> how does the central input become a useful result?
-  -> what real situation breaks that design?
-  -> what new idea fixes only that problem?
-  -> what does the current project call and implement it?
-```
+For Chinese output, write the complete package in Chinese while preserving official technical names and code identifiers.
 
-Do not turn a directory map, object inventory, constraint ladder, release history, or design-decision list directly into the required reading path.
+Keep `00-阅读指南.md` as the fixed entry filename in either language.
 
-## Reader-State Contract
-
-Design every article as a transition in the reader's mental state. Before drafting it, record internally:
-
-```text
-Already understood: what the prior reading established
-Current question: the one confusion this article resolves
-New durable concepts: normally no more than three
-Safe to ignore: accurate details not needed yet
-Exit capability: what the reader can explain afterward
-```
-
-Split the article when it needs more than three durable new concepts or resolves more than one independent confusion. Count mental objects the reader must remember, not English words or headings. In beginner prose, count every named project object, subsystem, algorithm, infrastructure product, and acronym unless it is confined to a clearly skippable engineering note.
-
-Do not expose this internal ledger mechanically. In the article, briefly tell the reader what they already need to know, what they can ignore for now, and what they will be able to explain.
-
-## Stable Scenario
-
-Choose one central, concrete task that best expresses the project's value. It may be a user's workflow, an operator's incident, a developer calling a library, or an external event moving through the system.
-
-Reuse the same actor, input, and desired result throughout the beginner core. Extend that scenario when introducing later pressures instead of switching to disconnected examples. Use a second scenario only when the project truly has another independent core loop.
-
-The scenario must be supported by the project's actual capabilities. Specific names and values may be pedagogical examples, but do not invent product behavior.
-
-## Learning Package Contract
-
-Produce a maintainable Markdown package with three logical reading layers. Adapt article count to the project; do not force fixed titles or a fixed number of files. Store every article as a flat Markdown file in the same project learning directory; represent layers through numbering and `00-阅读指南.md`, not nested folders.
-
-### Layer 1: Beginner core — required
-
-Establish one complete end-to-end loop before explaining current architecture. The core usually needs two to four short articles that let the reader explain:
-
-- the actor, problem, input, useful result, and boundary;
-- how the system turns the input into usable state or material;
-- how that state or material produces the result;
-- the few concepts without which the loop cannot be understood.
-
-Keep code paths, complete object maps, deployment topology, history, and reliability machinery out of the main beginner narrative. Mention them only in clearly skippable engineering notes when necessary for accuracy. Once an article reaches its exit capability, stop; do not append the fuller current pipeline, adjacent domain objects, or operational edge cases merely because they are related.
-
-### Layer 2: Reality modules — optional by goal
-
-Start with the minimal loop and add one pressure per article, such as slow work, failure recovery, scale, quality, multiple users, extensibility, governance, correction, or dynamic action.
-
-For each module:
-
-```text
-new concrete situation
-  -> why the previous design visibly fails
-  -> simplest new mechanism that addresses it
-  -> the project's name and implementation boundary
-  -> benefit, cost, and what remains unsolved
-```
-
-Do not compress all pressures into one required "constraint ladder" chapter. Do not require every reality module; give paths based on the learner's goal.
-
-### Layer 3: Engineering reference — optional
-
-After the learner owns the core story, consolidate the accurate engineering view:
-
-- current deployable actors and external dependencies;
-- core domain objects and relationships;
-- complete representative runtime flows and state transitions;
-- reliability, authorization, storage, queue, observability, and extension boundaries;
-- material design decisions and tradeoffs;
-- code landmarks, reading routes, tests, history, and evidence limits;
-- question-shaped candidates for later mechanism deep dives.
-
-Reference articles may be denser. Always map them back to the story and concepts already introduced.
-
-## Package Entrypoint
-
-Always create `00-阅读指南.md`.
-
-Open with a short instruction for a first-time reader: which beginner-core articles to read, what they will understand, and what they can ignore. Then include:
-
-- the three course layers and article order;
-- only Layer 1 marked required;
-- optional paths for different learning goals;
-- prerequisite relationships where they materially help;
-- repository path and inspected revision in a later inspection note, not the opening hook;
-- verified, inferred, unknown, and deliberately skipped areas in the engineering-reference section or a linked evidence note;
-- deep-dive questions after the architecture course.
-
-Use stable numeric prefixes and relative links. Keep shared definitions authoritative, but repeat a brief plain-language reminder when it reduces backtracking.
-
-## Lesson Construction
-
-Use this as a drafting rhythm, not a mandatory visible heading template:
-
-1. **Orient**: state the concrete moment, the one question, and what can be ignored.
-2. **Try the obvious approach**: show the smallest design a newcomer might expect.
-3. **Make it fail visibly**: use a user-visible symptom, concrete input, or operational consequence.
-4. **Explain the plain solution**: describe the new responsibility without project jargon.
-5. **Name and map it**: introduce the project's term, module, or object only after the idea is understood.
-6. **Correct the simplification**: say what the analogy explains, where it stops, and what the real boundary is.
-7. **State the cost**: identify complexity or behavior introduced by the mechanism.
-8. **Close on capability**: give one compact model and say what the reader can now explain.
-9. **Attach engineering notes**: put code, tests, history, adjacent objects, and fuller implementation sequences after the self-contained narrative.
-
-Do not force quizzes or exercises. A non-interruptive self-check such as "If you can now explain X, this lesson is complete" is acceptable.
-
-## Absorption Constraints
-
-- Resolve one core learner question per article.
-- Introduce no more than three durable concepts in a beginner article; split instead of overloading.
-- Treat a project name as a concept when the main narrative asks the reader to distinguish or remember it. Do not hide overload inside caveats, state tables, or an "accurate implementation" paragraph.
-- In the beginner core, name only the project concepts inside the article's budget. Move subordinate technologies, configuration fields, secondary objects, and the complete production sequence to engineering notes or reference.
-- Keep the first diagram of a topic to at most five meaningful nodes. Reveal detail in later diagrams or engineering reference.
-- Let each paragraph perform one causal job.
-- Establish recognition before naming: experience the problem, understand the responsibility, then learn the term.
-- Define unfamiliar domain language at the moment it becomes necessary, using ordinary language first.
-- Keep a code-free reader able to follow the complete main narrative.
-- Put file paths and implementation symbols after the concept they evidence; do not use them as the explanation.
-- Introduce core objects where their need appears, then consolidate them later in a reference map.
-- Preview later complexity without listing every future subsystem.
-- Prefer one evolving example over many small unrelated examples.
-- Use analogies as entry ramps, then explicitly state where each analogy stops being accurate.
-
-## Evidence and Confidence
+## Evidence and Historical Honesty
 
 Maintain these distinctions:
 
-- **Verified fact**: supported by current code, docs, tests, schema, or history.
+- **Verified fact**: supported by current code, docs, tests, schemas, manifests, or history.
 - **Documented intent**: maintainers explicitly state a reason or tradeoff.
-- **Architectural inference**: a plausible causal explanation derived from structure or change order.
-- **Unknown**: evidence is absent or conflicting.
+- **Pedagogical reconstruction**: a simplified causal sequence that helps the learner derive the current design; it is not claimed history.
+- **Architectural inference**: a plausible explanation derived from current structure and dependency boundaries.
+- **Unknown**: evidence is absent, inaccessible, or conflicting.
 
-Keep the beginner narrative readable while preserving honesty:
+Code proves current behavior and boundaries; directory names and commit order do not prove original motivation. Say "the current structure reflects..." or "a likely architectural reason is..." unless documentary evidence supports "the maintainers chose this because...".
 
-- put detailed citations, commit history, and confidence notes in skippable engineering notes or reference articles;
-- surface uncertainty in the main narrative only when hiding it would make the explanation misleading;
-- do not infer motivation solely from one feature appearing before another;
-- call the earliest visible state "earliest observable repository state" unless evidence proves an origin;
-- if history is shallow or already mature, rely on pedagogical reconstruction and label it as such.
+History validates and corrects the course. It is not the default narrative spine. Call the earliest visible state the "earliest observable repository state" unless evidence proves an origin.
 
-History validates and corrects the course; it is not the default narrative spine.
+## Investigation Model
 
-## Default Workflow
+Inspect broadly enough to identify:
 
-### Phase 1: Reconnaissance
+- the solution-free goal, actor, visible success, and system boundary;
+- product domains and core object relationships;
+- deployable or executable roles, persistent stores, external systems, and delivery boundaries;
+- shared architecture responsibilities and cross-cutting authorities;
+- representative read, write, asynchronous, and background-convergence flows;
+- manifests, workspace configuration, package dependencies, entrypoints, schemas, migrations, generated code, tests, and deployment definitions;
+- current repository roots, external repositories, primary and secondary organizing axes, and evolutionary seams;
+- documented decisions, meaningful historical evidence, and remaining unknowns.
 
-1. Read product-facing material and identify the primary actor, task, input, output, and boundary.
-2. Identify processes, stores, integrations, entrypoints, main objects, and two or three representative flows.
-3. Inspect tests and history for behavior, invariants, inflection points, and documented rationale.
-4. Separate the project's real core from productization, integrations, deployment options, and peripheral features.
+During investigation, distinguish:
 
-Scan widely, then read representative files deeply. Reading the whole repository is unnecessary.
+```text
+human or business goal
+domain choice
+project capability
+architecture responsibility
+repository organization
+implementation detail
+```
 
-### Phase 2: Design the course
+Scan widely, then read representative files deeply. Reading every directory is unnecessary; failing to identify a major runtime, state, integration, product-domain, repository, or delivery boundary is not.
 
-1. Choose the stable scenario and smallest complete loop.
-2. Build the reader-state ledger and concept budget for the beginner core.
-3. Verify that the core reaches a useful result before showing current architecture.
-4. Select reality modules, one pressure per article, and mark them optional by goal.
-5. Move topology, full object maps, complete flows, code, decisions, history, and evidence into engineering reference.
-6. Check that the teaching order differs from the investigation inventory whenever the learner benefits.
+## Stable Goal, Evolving System
 
-### Phase 3: Produce the package
+Choose one central, concrete goal that best expresses the project's value. It may be a user workflow, operator incident, library call, or external event moving through the system.
 
-1. Create the guide and complete three-layer package in one run.
-2. Keep the stable scenario and terminology consistent across articles.
-3. Add small diagrams only where they remove a real comprehension obstacle.
-4. End each article with a durable model, exit capability, and next optional step.
-5. Add the code-reading map and compact mechanism-skill handoff last.
+Keep stable through the architecture-construction spine:
 
-## Output Location and Maintenance
+- the main actor or role;
+- the final human or business goal;
+- the visible result that proves success;
+- the central scenario.
 
-1. Use the user's requested directory when supplied.
-2. Otherwise create or reuse one project directory under the central repository-learning root:
+Allow to evolve:
+
+- technical input;
+- current system boundary;
+- acceptable completion method;
+- architecture nodes and relationships;
+- module and repository knowledge.
+
+Use a second scenario only when another independent core loop is necessary to explain the current architecture. Pedagogical names and values may make a verified capability concrete, but must not invent product behavior.
+
+## Article Design
+
+Design each architecture-growth article as one transition. Internally record:
+
+```text
+Stable business goal:
+Architecture already earned:
+Conditions under which the current system works:
+One new concrete pressure:
+Visible symptom or unacceptable cost:
+New responsibility:
+New durable concepts:
+Architecture-model delta:
+Current repository implementation:
+Evidence boundary:
+Deliberately deferred categories:
+Exit capability:
+```
+
+These fields, architecture admission cards, concept budgets, repository decision cards, and module responsibility cards are authoring tools. Do not render them as repeated headings, lesson objectives, "completion standards," reader-capability statements, or fixed article endings.
+
+Normally add one primary responsibility per article. Supporting concepts may appear when they solve the same pressure and the total durable-concept count remains manageable. Count domain objects, nodes, states, identities, authority distinctions, synchronization relationships, and necessary caveats as concepts.
+
+Split an article when it resolves independent pressures or asks the learner to retain several unrelated system models. Do not repair a broken transition by appending caveats.
+
+Use this causal rhythm internally while drafting natural prose:
+
+1. recall the stable goal and current system;
+2. make the current system's success evident through an observable result;
+3. add one concrete pressure;
+4. make the problem visible;
+5. explain the missing responsibility in ordinary language;
+6. name the project mechanism and update the model;
+7. include benefit, cost, or boundary only when it improves the current explanation;
+8. end naturally with the state the system has now reached or the next concrete pressure. Do not emit a completion criterion, lesson objective, or reader-capability statement.
+
+## Required Course Shape
+
+Produce three logical reading sections. Article count follows cognitive transitions and repository complexity, not a preset quota.
+
+### 1. Architecture-construction spine — required
+
+The required spine must establish:
+
+1. a solution-free goal and earliest working system;
+2. only the domain foundation needed to understand the project's responsibility;
+3. why the project appears and one minimal successful project loop;
+4. why every major current architecture responsibility appears;
+5. the current product-domain map;
+6. a complete architecture assembly;
+7. two to four representative flows and their state/authority boundaries;
+8. a responsibility map for every major module.
+
+A responsibility belongs in this spine when it materially participates in a central flow, owns important state, defines a cross-module contract, is a runtime/build/deployment role, drives asynchronous lifecycle, isolates an external system, converges state, carries cross-cutting authority, or determines repository ownership.
+
+### 2. Repository-navigation spine — required
+
+After the architecture is understandable, teach:
+
+1. the organizing pressures maintainers face;
+2. the repository's primary and secondary organizing axes;
+3. at least one genuinely workable alternative and its tradeoff;
+4. how architecture responsibilities map to current repositories, directories, packages, entrypoints, generated artifacts, and tests;
+5. how representative flows traverse the real tree;
+6. how concrete changes map to primary owners, required contracts, conditional neighbors, external repositories, unaffected areas, and validation;
+7. how evolutionary seams and unverified external boundaries affect modification choices.
+
+The reader should not need to infer this mapping from a directory inventory.
+
+Keep the same connected prose through this section. Begin from the architecture responsibility the reader already understands, explain the code-organization pressure, then introduce the directory, representative entrypoint, and change consequence. Trees, tables, responsibility maps, and test maps support that explanation; they do not replace it.
+
+### 3. Mechanism deep dives — optional
+
+Reserve function-level state machines, retry algorithms, payload construction, synchronization internals, complex lifecycle branches, and complete delivery chains for question-shaped optional follow-ups. Do not use optionality to hide a major current architecture responsibility.
+
+## Architecture Convergence
+
+Build diagrams progressively, then converge them.
+
+- The first model contains only the earliest system that genuinely works.
+- Later articles add only nodes and relationships already derived in prose.
+- State which pressure earned each new node.
+- Do not preview future mechanisms merely to make a diagram complete.
+- Before the architecture spine ends, assemble at least the domain/responsibility, runtime/deployment, and state/flow views defined in the course contract.
+- The assembly article should introduce few or no new durable concepts.
+
+Every major module must have a responsibility card that explains why it exists, what it receives and produces, what state it owns, who calls it, what it calls, what it explicitly does not own, where it runs, where it lives, what changes it primarily owns, and which tests represent it.
+
+The card may be rendered as a comparative summary table when that materially helps the reader. Do not repeat its field labels as a bureaucratic template for every module.
+
+## Repository Organization and Code Navigation
+
+Treat the repository tree as one projection of a multidimensional architecture, not as the architecture itself.
+
+Determine whether the tree is primarily organized by product domain, technical responsibility, runtime/build/deployment unit, shared contract, integration boundary, or a hybrid. Identify the secondary axis used inside those top-level boundaries.
+
+Compare the current choice with at least one plausible alternative. Explain the pressure, benefit, cost, and change-navigation consequence without pretending to know undocumented original intent.
+
+Teach repository landing through:
+
+```text
+architecture responsibility
+  -> current repository and directory/package
+      -> representative file, type, or function
+          -> test and verification path
+```
+
+An annotated tree must mark implementation homes, generated code, tests, runtime or delivery units, external repositories, unverified paths, and first-pass skip areas. Expand only to the depth that explains responsibility and ownership.
+
+For every change example distinguish:
+
+```text
+Primary owner:
+Required contract changes:
+Conditional adjacent changes:
+Generated consumers:
+External repositories:
+Verification paths:
+Explicitly unaffected areas:
+Unknown or blocked boundaries:
+```
+
+Do not promise that one feature maps to one module. Teach how to find the primary owner and then prove the conditional impact surface.
+
+## Package Entrypoint and Output
+
+Always create `00-阅读指南.md`.
+
+Open with:
+
+- the solution-free goal;
+- the complete required architecture and repository-navigation path;
+- the mental models the reader will build;
+- which already-understood categories can be skipped initially.
+
+Do not open with an unexplained final architecture or jargon inventory. Later include repository path, inspected revision, evidence boundaries, optional deep dives, and alternate routes.
+
+Store every article as a flat Markdown file in one learning directory. Use stable numeric prefixes and relative links, not nested layer folders.
+
+Use the requested output directory. Otherwise create or reuse:
 
 ```text
 /Users/peixian/wpx/my/github/repo-reader/<repository-name>/
 ```
 
-3. Write `00-阅读指南.md` and every numbered course article directly in that project directory. Do not create `project-understanding/`, layer, chapter, or topic subdirectories.
-4. Treat the three course layers as navigation metadata, not filesystem hierarchy; use numeric prefixes and relative links between the flat Markdown files.
-5. Before reusing an existing project directory, inspect its guide or inspection note and confirm it belongs to the same source repository. If the directory name collides with a different repository, stop and ask for an explicit target rather than mixing materials.
-6. Keep the source checkout clean unless the user explicitly requests otherwise.
-7. Inspect an existing learning directory before updating it. Preserve user notes and unrelated files; change only files owned by this package.
-8. Update affected articles and the guide without rewriting unrelated material.
+Before reusing an existing directory, verify it belongs to the same source repository. Preserve user notes and unrelated files. Keep source checkouts unchanged.
 
-## Repository Reading Map
+## Default Workflow
 
-Only after the architecture is understandable:
+### Phase 1: Reconnaissance
 
-1. Group code by entry surfaces, core use cases, domain/runtime, infrastructure, integrations, deployment, and tests as appropriate.
-2. Give a dependency-aware reading order and explain what question each stop answers.
-3. Say what can be skipped on the first pass and why.
-4. Offer alternate paths for the user's likely goals without inventing a time budget.
+1. Resolve instructions, language, source root, output, revision, and learning goal.
+2. Identify the solution-free goal, domain runway, earliest working system, and visible success.
+3. Identify product domains, roles, stores, external systems, major responsibilities, and representative flows.
+4. Inspect current repository organization, dependencies, generated boundaries, tests, external repositories, delivery configuration, decisions, and history.
+5. Build the evidence table, architecture admission cards, and repository organization decision cards from the course contract.
 
-Prefer a few high-value landmarks over a directory inventory.
+### Phase 2: Design
 
-## Deep-Dive Handoff
+1. Design the code-free architecture-construction spine.
+2. Record which ordinary programming concepts can be compressed, which domain mechanisms need expansion, and which code identifiers must be delayed.
+3. Confirm that every major current responsibility has earned a required article or an explicit place in a shared-pressure article.
+4. Design the convergence views, flows, and module responsibility cards.
+5. Design the maintainer-organization bridge by comparing current and plausible alternative structures.
+6. Map every responsibility and representative flow to real repositories, directories, entrypoints, generated artifacts, and tests.
+7. Add at least three change-navigation cases: local presentation, cross-layer capability, and background/integration/delivery.
+8. Assign optional mechanism deep dives last.
 
-End with question-shaped candidates rather than performing function-level deep dives. Preserve:
+### Phase 3: Produce and audit
 
-- repository path and inspected revision;
-- the current code-free mental model;
-- likely entrypoints for each question;
-- verified facts, inferences, unknowns, and deliberately skipped mechanisms.
-
-Examples:
-
-- "How does one item move from acceptance to durable availability, including retries?"
-- "How is legal scope resolved before a search or tool call?"
-- "Why does this path use a fixed pipeline while another uses a decision loop?"
+1. Create the guide and complete package in one run unless incremental delivery was requested.
+2. Keep the stable scenario consistent while allowing the system and repository model to evolve.
+3. Draft the complete package in connected prose; do not expose internal cards or causal checklists.
+4. Add diagrams only when they materially remove a comprehension obstacle and pass the deletion test in the narrative contract.
+5. Run the narrative, causal, architecture-completeness, repository-organization, path, link, and change-navigation audits from the references.
+6. Report document checks as document checks; do not claim source tests or runtime validation that did not occur.
 
 ## Delivery Self-Check
 
-Before declaring the package complete, verify:
+Before declaring completion, verify:
 
-- `00-阅读指南.md` marks only the beginner core as required.
-- One concrete scenario carries the beginner core to an end-to-end result.
-- The core does not require code, a full architecture diagram, or an object inventory.
-- Every article resolves one learner question and stays within its concept budget.
-- Terms appear after the problem and plain-language responsibility are understood.
-- Each beginner article stops after its promised exit capability instead of expanding into the complete implementation.
-- Named technologies, algorithms, and domain objects in beginner prose all fit the stated concept budget; optional engineering notes are the only exception.
-- First-pass diagrams stay small and detailed diagrams appear later.
-- Each reality module introduces one pressure instead of summarizing the whole architecture.
-- Engineering notes can be skipped without breaking the main explanation.
-- Reference articles still provide accurate architecture, flows, objects, tradeoffs, evidence, and code routes.
-- Facts, documented intent, inference, and unknowns are not conflated.
-- All package Markdown files are flat in the selected project directory; no course-layer or `project-understanding` subdirectory was created.
-- The source repository remains unchanged.
+- both required spines are marked required in `00-阅读指南.md`;
+- the initial goal contains no unearned solution word;
+- each old system visibly works before one new pressure appears;
+- familiar software context is compressed while unfamiliar domain mechanisms receive enough explanation;
+- internal cards, concept budgets, and exit capabilities do not leak into visible prose;
+- each paragraph adds a fact, causal relationship, system model, boundary, or code-navigation consequence;
+- each article ends on a natural result or next pressure rather than a fixed summary;
+- every diagram still carries useful information after comparing it with the surrounding prose;
+- every major current responsibility is in required reading;
+- the final architecture views contain only explained nodes;
+- the reader can traverse two to four representative flows and identify state authority;
+- every major module has a complete responsibility card;
+- the repository's primary and secondary organizing axes and one alternative are explained;
+- organizational rationale is labeled as fact, intent, inference, reconstruction, or unknown;
+- evolutionary seams are not silently presented as an ideal design;
+- every major responsibility maps to current repositories, directories, entrypoints, and tests;
+- generated and external boundaries are explicit;
+- change cases distinguish primary, required, conditional, unaffected, external, and unknown areas;
+- local paths exist at the inspected revision and relative article links resolve;
+- all package Markdown files are flat in the selected learning directory;
+- source repositories remain unchanged.
 
 ## Style and Guardrails
 
-- Use the user's language; default to Chinese when the user writes Chinese.
 - Teach foundations without sounding patronizing.
-- Prefer concrete actions, visible states, examples, and small diagrams over abstract definitions.
-- State the useful judgment first, but build enough context for a blank-slate reader to understand it.
-- Separate product capability, architecture mechanism, implementation detail, and historical evidence.
-- Do not summarize the README, dump release notes, enumerate directories, or praise complexity because it exists.
-- Do not introduce a module before the reader understands the problem that makes its responsibility necessary.
-- Do not force every project into layered-architecture vocabulary or a fixed article outline.
-- Do not make source code a prerequisite for understanding the conceptual narrative.
-- Do not modify the source repository as part of teaching.
+- Compress what a general programmer already knows; expand what is unfamiliar about this project or domain.
+- Use a scenario only to establish the pressure. Do not develop atmosphere, character detail, or business background that does not improve the architecture model.
+- Prefer concrete actions, visible states, and examples over abstract definitions, but use numbers and narrative detail only when they clarify resources, state, scale, cost, or boundaries.
+- Resolve one core learner question per growth article.
+- Establish recognition before naming; explain responsibility before project terminology.
+- Use ordinary descriptive names before arbitrary code-like identifiers. Delay files, types, functions, and teaching names such as `order-api` until they provide real navigation value.
+- Remove a paragraph that merely makes the story more vivid, restates the previous paragraph, or satisfies an internal template without adding information.
+- Do not mechanically add meta prose such as "this article covers," "we will ignore," "the current solution works," "completion standard," "the reader can now explain," or "chapter summary." Use such phrasing only when its information is genuinely necessary.
+- Do not append fixed summaries, review questions, lesson objectives, or capability statements to ordinary articles.
+- A diagram must show a relationship, change, allocation, flow, authority, boundary, or architecture-to-code projection that adjacent prose does not make equally clear. Do not rearrange the same nouns into a decorative tree.
+- Keep the code-free architecture narrative understandable without source access.
+- Keep repository-navigation prose connected to the architecture narrative. Introduce paths, trees, matrices, and tests through the responsibility and modification question they answer.
+- Do not summarize a README, dump releases, enumerate directories, or praise complexity because it exists.
+- Do not introduce a module before the reader understands the pressure that earns it.
+- Do not infer design intent solely from a package name, directory shape, import edge, or commit order.
+- Do not force every project into Tower's domain runway, module taxonomy, or article numbers.
+- Preserve technical depth by moving mechanism detail later, not by deleting major architecture responsibilities.
+- Do not modify source repositories as part of teaching.

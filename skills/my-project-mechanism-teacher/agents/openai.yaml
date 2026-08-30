@@ -1,6 +1,6 @@
 interface:
   display_name: "Project Mechanism Teacher"
-  short_description: "Understand one mechanism without reading source code"
-  default_prompt: "Use $my-project-mechanism-teacher to teach me how this specific repository flow, subsystem, or technology choice works and why through a beginner-first learning package."
+  short_description: "Explain one mechanism and map it to code"
+  default_prompt: "Use $my-project-mechanism-teacher to explain how this repository mechanism works in smooth, information-dense prose, then map its states, failure boundaries, change points, and tests to the current code."
 policy:
   allow_implicit_invocation: false
