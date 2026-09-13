@@ -1,0 +1,7 @@
+interface:
+  display_name: "my-project-guider"
+  short_description: "通过对话理解项目的业务、架构与工程取舍，主动带学并接续进度"
+  default_prompt: "使用 $my-project-guider 带我了解这个项目，结合已有学习进度主动选择切入点，先通过对话讲清概念，不要求我阅读源码。"
+
+policy:
+  allow_implicit_invocation: true
