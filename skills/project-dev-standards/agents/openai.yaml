@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目开发规范"
+  short_description: "调查项目并完整覆盖确认清单，生成可供 AI 持续遵守的项目规范"
+  default_prompt: "使用 $project-dev-standards 为当前项目建立或更新项目规范，先调查，只讨论需要我决定的关键取舍。"

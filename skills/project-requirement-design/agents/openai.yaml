@@ -1,0 +1,4 @@
+interface:
+  display_name: "需求设计与实施规格"
+  short_description: "审视需求与方案，讲清完整业务机制，并形成可交接的设计和验收文档"
+  default_prompt: "使用 $project-requirement-design 评估这个需求和候选方案，在项目规范下讨论并讲清完整业务机制，将决定整理成项目内可直接交接开发和验收的文档。"
