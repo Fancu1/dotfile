@@ -1,4 +1,4 @@
 interface:
   display_name: "全局开发规范"
-  short_description: "通过完整确认清单建立和增量维护跨项目公共与语言开发规范"
-  default_prompt: "使用 $global-dev-standards，根据我的需求生成、检查或更新全局开发规范。"
+  short_description: "根据我的偏好直接生成可执行的公共与语言开发规范，并支持局部更新"
+  default_prompt: "使用 $global-dev-standards，根据我的偏好直接生成全局开发规范，普通细节采用合理默认。"
